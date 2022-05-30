@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import {API} from '../config'
 
 export const fwfasignup = user => {
-    return fetch(`${API}/fwfasignup`, {
+    return fetch(`${API}/signup`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
