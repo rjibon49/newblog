@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import ssi from '../../src/images/Users/studentSignin.png';
 import Image from 'next/image'
-import {fwfasignup} from '../../actions/auth'
+import {signup} from '../../actions/auth'
 
 
 const SignupComponents = () => {
@@ -27,7 +27,7 @@ const SignupComponents = () => {
         setValues({...values, loding: true, error: false})
         const user =  {name, email, password}
 
-        fwfasignup(user).then(data => {
+        signup(user).then(data => {
             if(data?.error) {
                 setValues({...values, error: data.error, loding: false})
             }
@@ -40,6 +40,10 @@ const SignupComponents = () => {
     const handleOnBlur = name => e => {
         setValues({...values, error: false, [name]: e.target.value });
     };
+
+    const showLoding = () => ( loding ? <div className='alert alert-info'> Loding.. </div> : '');
+    const showError = () => ( error ? <div className='alert alert-danger'> {error} </div> : '');
+    const showMessage = () => ( message ? <div className='alert alert-info'> {message} </div> : '');
 
     // const [loginData, setLoginData] = useState({});
 
@@ -147,7 +151,11 @@ const SignupComponents = () => {
 
     return (
         <>
-            {signupForm()}
+        {showError()}
+        {showLoding()}
+        {showMessage}
+
+        { showForm && signupForm()}
         </>
     );
 };
