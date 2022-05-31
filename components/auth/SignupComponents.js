@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner, Toast } from 'react-bootstrap';
 import { TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import ssi from '../../src/images/Users/studentSignin.png';
 import Image from 'next/image'
-import {signup} from '../../actions/auth'
+import {signup, isAuth} from '../../actions/auth'
+import Router from 'next/router'
 
 
 const SignupComponents = () => {
@@ -20,6 +21,10 @@ const SignupComponents = () => {
     });
 
     const { name, email, password, error, loding, message, showForm } = values;
+
+    useEffect(() => {
+        isAuth() && Router.push('/');
+    }, []);
 
     const handleSignupSubmit = e => {
         e.preventDefault();
@@ -155,7 +160,7 @@ const SignupComponents = () => {
         {showLoding()}
         {showMessage}
 
-        { showForm && signupForm()}
+        { signupForm()}
         </>
     );
 };

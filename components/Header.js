@@ -19,6 +19,8 @@ import youtube from '../src/images/social/youtube.png'
 
 import Link from 'next/link';
 import Image from 'next/image'
+import Router from 'next/router'
+import {signout, isAuth} from '../actions/auth'
 
 const Header = () => {
     // const { user, logout } = useAuth();
@@ -89,6 +91,14 @@ const Header = () => {
                             <Link href="/event"><Nav>Events</Nav></Link>
                             <Link href="/blog"><Nav>Blog</Nav></Link>
                             <Link href="/contacts"><Nav>Contact Us</Nav></Link>
+                            {!isAuth() && 
+                            <>
+                                <Link href="/signup"><Nav>Sign Up</Nav></Link>
+                                <Link href="/signin"><Nav>Sign In</Nav></Link>
+                            </>}
+                            {isAuth() && (
+                                <Nav onClick={() => signout(() => Router.replace(`/signin`))}>Sign Out</Nav>
+                            )}
                             {/* <Nav.Link as={Link} to="/home" className="">Home</Nav.Link>
                             <Nav.Link as={Link} to="/about" className="">About Us</Nav.Link>
                             <Nav.Link as={Link} to="/program" className="">Program</Nav.Link> */}

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner, Toast } from 'react-bootstrap';
 import { TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import ssi from '../../src/images/Users/studentSignin.png';
 import Image from 'next/image'
 import Router from 'next/router'
-import {signin, authenticate} from '../../actions/auth'
+import {signin, authenticate, isAuth} from '../../actions/auth'
 // import { Router } from '@mui/icons-material';
 
 
@@ -22,6 +22,10 @@ const SigninComponents = () => {
     });
 
     const { name, email, password, error, loding, message, showForm } = values;
+
+    useEffect(() => {
+        isAuth() && Router.push('/');
+    }, []);
 
     const handleSigninSubmit = e => {
         e.preventDefault();
